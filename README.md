@@ -8,7 +8,66 @@
 Code and other relevant materials will be made public after the conference proceedings.
 
 
-## Citation
+
+	pip install librosa
+	pip install git+https://github.com/suno-ai/bark.git
+	
+
+
+##Generating Audio
+File: "bark_audio_conversion.ipynb"
+
+Due to data privacy, we are unable to release the exact audio files used in our study. Use this notebook to convert the text data to audio files.
+
+1. Install Bark https://github.com/suno-ai/
+
+2. Add text data
+	texts = np.array()
+	
+Expected outputs:
+	Audio generated from text with filename format of "_AUDIO/Sample_{id}.wav"
+
+##Finetune Teacher Models
+### Text and Emotion Teachers
+File: "finetune_text_emo_teachers.ipynb"
+
+Finetuning of BERT, RoBERTa, MentalBERT, ClinicalBERT and MM-EMOG (Emotion Teacher) https://github.com/adlnlp/mm_emog
+
+NOTE: Huggingface login is required https://huggingface.co/docs/huggingface_hub/en/quick-start#login-command to train MentalBERT
+
+1. Set the following variables:
+	emoEmbPath = ""				#MM-EMOG path (_MODELS/MMEMOG)
+	datasetName = ""			#Dataset identifier for saving model
+
+2. Add data
+	raw_sentences = np.array()	#Text for finetuning
+	raw_labels = np.array()		#Labels for finetuning
+	
+Expected outputs:
+	Finetuned models in "_MODELS" folder (default) with filename "_MODELS/{datasetName}_{checkpoint}.pt"
+	
+### Audio Teacher
+File: "finetune_audio_teacher.ipynb"
+
+1. Install librosa
+
+2. Set variables
+	datasetName = ""	#Dataset identifier for saving model
+	AUDIO_PATH = "" 	#Folder where audio files are contained	
+	raw_labels = ""		#Labels for finetuning
+	
+Expected outputs:
+	Finetuned AST model in "_MODELS" folder (default) with filename "_MODELS/{datasetName}_{checkpoint}.pt"
+
+##Train Student
+File: "train_student_model.ipynb"
+
+1. Set variables
+	teacher_checkpoints = []	#List of teachers to use; just have at least 1
+	model_paths = {}			#Dictionary of teacher model paths 
+	session_title = ""			#Title for file saving
+
+## Citation (will be updated to CIKM citation once released)
 ```
 @article{cabral20243mhealth,
       title={3M-Health: Multimodal Multi-Teacher Knowledge Distillation for Mental Health Detection}, 
