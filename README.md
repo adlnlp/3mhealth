@@ -6,19 +6,28 @@
 
 ---
 
-Required packages
+Required packages:
 ```
 pip install librosa
 pip install git+https://github.com/suno-ai/bark.git
 ```
 
-⚠️NOTE: Finetuned teacher model states and MM-EMOG pre-trained weights will be shared soon
+Datasets:
+- TwitSuicide [[paper](https://arxiv.org/abs/2206.08673)]
+- DEPTWEET [[paper](https://doi.org/10.1016/j.chb.2022.107503)] [[source](https://github.com/mohsinulkabir14/DEPTWEET)]
+- IdenDep [[paper](https://doi.org/10.18653/v1/W18-5903)] [[source](https://github.com/Inusette/Identifying-depression)]
+- SDCNL [[paper](https://doi.org/10.1007/978-3-030-86383-8_35)] [[source](https://github.com/ayaanzhaque/SDCNL)]
+  
+Downloadable Model Files (optional):
+- [MM-EMOG embeddings](https://drive.google.com/file/d/1jSC0c2MrWpr9uk8no_2wYnvALipb7L_0/view?usp=sharing) - multi-emotion wordpiece embeddings \[[paper](https://doi.org/10.3390/robotics13030053)\] used for initializing the emotion teacher model
+- Finetuned Teacher Models - models expected from Step 2 and 3
+    - [TwitSuicide](https://drive.google.com/file/d/1uyZMYIY0WURxTG79DC4cSL9I7Pi9G9n9/view?usp=sharing), [DEPTWEET](https://drive.google.com/file/d/1X4wbqGv1vrrnts7qZs74GYxW6IgNB7Hv/view?usp=sharing), [IdenDep](https://drive.google.com/file/d/16_NnEksfdem0C8VxxTmVGQiumxo1g4RP/view?usp=sharing), [SDCNL](https://drive.google.com/file/d/1owmEj7UCAqAlC7_Po8PudyMhNqVJ86vX/view?usp=sharing)
 
-
-## Generating Audio
+## Methodology
+### Step 1: Generate Audio
 File: _"bark_audio_conversion.ipynb"_
 
-Due to data privacy, we are unable to release the exact audio files used in our study. Use this notebook to convert the text data to audio files.
+Generates audio files from text input. Due to data privacy, we are unable to release the exact audio files used in our study. Use this notebook to convert the text data to audio files.
 
 1. Required package: [Bark](https://github.com/suno-ai/)
 2. Add text data
@@ -29,7 +38,7 @@ texts = np.array()
 Expected outputs:
 - _"\_AUDIO/Sample\_{id}.wav"_ - wav file generated from text
 
-## Finetune Text and Emotion Teacher Models
+### Step 2: Finetune Text and Emotion Teacher Models
 File: _"finetune_text_emo_teachers.ipynb"_
 
 Finetuning of [BERT](https://huggingface.co/google-bert/bert-base-uncased), [RoBERTa](https://huggingface.co/FacebookAI/roberta-base), [MentalBERT](https://huggingface.co/mental/mental-bert-base-uncased), [ClinicalBERT](https://huggingface.co/medicalai/ClinicalBERT) and [MM-EMOG](https://github.com/adlnlp/mm_emog) (Emotion Teacher) 
@@ -50,7 +59,7 @@ raw_labels = np.array()		#Labels for finetuning
 Expected outputs:
 - _"\_MODELS/{datasetName}\_{model}.pt"_ - finetuned teacher models 
 	
-## Finetune Audio Teacher
+### Step 3: Finetune Audio Teacher
 File: _"finetune_audio_teacher.ipynb"_
 
 1. Required package: librosa
@@ -64,8 +73,10 @@ raw_labels = ""		#Labels for finetuning
 Expected outputs:
 - "\_MODELS/{datasetName}\_MIT_ast-finetuned-audioset-10-10-0.4593.pt" - finetuned AST model
 
-## Train Student
+### Step 4: Train Student
 File: _"train\_student\_model.ipynb"_
+
+Use finetuned teacher models from Step 2 and 3 or download the provided model files to distill knowledge to the student model.
 
 1. Required package: librosa
 2. Set variables
