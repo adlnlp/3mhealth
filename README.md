@@ -4,6 +4,8 @@
 
 **Abstract:** The significance of mental health classification is paramount in contemporary society, where digital platforms serve as crucial sources for monitoring individuals' well-being. However, existing social media mental health datasets primarily consist of text-only samples, potentially limiting the efficacy of models trained on such data. Recognising that humans utilise cross-modal information to comprehend complex situations or issues, we present a novel approach to address the limitations of current methodologies. In this work, we introduce a **M**ultimodal and **M**ulti-Teacher Knowledge Distillation model for **M**ental **Health** Classification, leveraging insights from cross-modal human understanding. Unlike conventional approaches that often rely on simple concatenation to integrate diverse features, our model addresses the challenge of appropriately representing inputs of varying natures (e.g., texts and sounds). To mitigate the computational complexity associated with integrating all features into a single model, we employ a multimodal and multi-teacher architecture. By distributing the learning process across multiple teachers, each specialising in a particular feature extraction aspect, we enhance the overall mental health classification performance. Through experimental validation, we demonstrate the efficacy of our model in achieving improved performance.
 
+![Overall Architecture](https://github.com/adlnlp/3mhealth/blob/main/figure1_3m.jpg)
+
 ---
 
 Required packages:
@@ -107,8 +109,11 @@ Expected outputs:
 - _"\_OUTPUT/{session_title}\_bestOf{#bestRun}.csv"_ - predictions for the best run
 - _"\_OUTPUT/{session_title}\_cm.png"_ - confusion matrix for the best run
 
+## Overall Results
+
+![Overall results](https://github.com/adlnlp/3mhealth/blob/main/OverallResult.png)
+
 ## Citation 
-_To be updated to CIKM citation once officially published_
 ```
 @inproceedings{10.1145/3627673.3679635,
 author = {Cabral, Rina Carines and Luo, Siwen and Poon, Josiah and Han, Soyeon Caren},
